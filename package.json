@@ -1,8 +1,7 @@
 {
   "name": "dsh-wsl-expose",
-  "description": [
-	  "en":"Expose the DeepSeek Harness Web GUI to the public internet from WSL2 over IPv6 or IPv4 through a reverse proxy (Lucky). One /wan command sets up the socat loopback relay, Windows portproxy, firewall rule, IPv6 detection, and the trusted-host fence."
-  ,"zh": "从 WSL2 走 IPv6/IPv4 经反向代理（Lucky）把 DSH Web GUI 暴露到公网：/wan up 一键建立 socat 中继、Windows portproxy、防火墙与 trusted-host 白名单，域名与端口持久化配置。"],
+  "description": 
+	  "Expose the DeepSeek Harness Web GUI to the public internet from WSL2 over IPv6 or IPv4 through a reverse proxy (Lucky). One /wan command sets up the socat loopback relay, Windows portproxy, firewall rule, IPv6 detection, and the trusted-host fence.",
   "version": "1.5.1",
   "type": "module",
   "main": "lib/index.js",
