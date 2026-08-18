@@ -1,0 +1,7 @@
+# dsh-wsl-expose bundle patch: inserts the WAN/IPv6 exposure plugin into the
+# profile's layer stack. The plugin registers the `/wan` slash command and,
+# on `/wan up <domain>`, writes the `connection` trusted-host override into
+# the profile's own cordis.patch.yml (the official user patch layer).
+- insert:
+    - id: dsh-wsl-expose
+      name: 'dsh-wsl-expose'
