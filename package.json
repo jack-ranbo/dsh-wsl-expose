@@ -1,7 +1,7 @@
 {
   "name": "dsh-wsl-expose",
   "description": "Expose the DeepSeek Harness Web GUI to the public internet from WSL2 over IPv6 or IPv4 through a reverse proxy (Lucky). One /wan command sets up the socat loopback relay, Windows portproxy, firewall rule, IPv6 detection, and the trusted-host fence.",
-  "version": "1.5.1",
+  "version": "1.6.1",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -35,9 +35,25 @@
     "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/dsh-commands": "^0.1.0-rc.6"
   },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "scripts": {
+    "build:client": "node scripts/build-client.mjs"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
     }
   },
   "exports": {
@@ -45,11 +61,13 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./client": "./client/client.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
   "files": [
     "lib",
+    "client",
     "cordis.patch.yml",
     "README.md",
     "README.zh.md",
