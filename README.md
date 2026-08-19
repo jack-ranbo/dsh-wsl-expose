@@ -55,9 +55,13 @@ Restart `dsh web`, then in any conversation run:
 | `/wan status` | Show current state |
 | `/wan doctor` | Diagnose the chain (including the classic Lucky `io timeout`) |
 
-## Defaults
+## Set the domain and ports — UI or commands
 
-The relay defaults to **listen 3082 → forward 127.0.0.1:3080** (the DSH web server's stock port). The forward port is NOT auto-detected from the running server — it is fixed and predictable; set it explicitly when DSH runs elsewhere.
+Both surfaces read and write the **same persisted settings** (the `wsl-expose` namespace in `settings.yaml`).
+
+**UI**: after restarting `dsh web`, open **Settings → Plugins → dsh-wsl-expose** — edit the domain, relay port, forward port, and the trusted-host fence switch; Save commits them.
+
+**Commands**:
 
 ```sh
 /wan set-domain dsh.your-domain.cn
@@ -66,8 +70,6 @@ The relay defaults to **listen 3082 → forward 127.0.0.1:3080** (the DSH web se
 ```
 
 Then just `/wan up` (no argument). The values are persisted in the plugin's settings namespace (`wsl-expose`), so they survive restarts. Resolution order — domain: **CLI arg → saved setting → config `domain`**; ports: **saved setting → config → defaults (3082 / 3080)**.
-
-> A UI input box in Settings → Plugins is planned for a later release — `set-domain` is the ready-now path.
 
 ## Configuration (file / profile)
 

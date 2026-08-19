@@ -55,9 +55,13 @@ dsh plugin --profile web add dsh-wsl-expose
 | `/wan status` | 查看当前状态 |
 | `/wan doctor` | 诊断链路（含经典的 Lucky `io timeout`） |
 
-## 默认值
+## 设置域名和端口——界面或命令，二选一或混用
 
-中继默认 **监听 3082 → 转发 127.0.0.1:3080**（DSH web 服务的默认端口）。转发目标**不再**从运行中的服务自动探测——固定、可预期；DSH 跑在别的端口时用命令显式指定。
+界面和命令读写的是**同一份持久化设置**（`settings.yaml` 里的 `wsl-expose` 命名空间）。
+
+**界面**：重启 `dsh web` 后，打开 **Settings → Plugins → dsh-wsl-expose**——编辑域名、中继端口、转发端口和 trusted-host 开关，点保存即可。
+
+**命令**：
 
 ```
 /wan set-domain dsh.your-domain.cn
@@ -66,8 +70,6 @@ dsh plugin --profile web add dsh-wsl-expose
 ```
 
 之后直接 `/wan up`（不带参数）。值持久化在插件的 settings 命名空间（`wsl-expose`）里，重启不丢。解析优先级——域名：**命令行参数 → 已保存设置 → 配置里的 `domain`**；端口：**已保存设置 → 配置 → 默认值（3082 / 3080）**。
-
-> Settings → Plugins 里的 UI 输入框计划在后续版本补齐——`set-domain` 是现在就能用的路径。
 
 ## 配置（文件 / profile）
 
