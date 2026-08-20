@@ -392,7 +392,7 @@ export function apply(ctx) {
   ctx.inject(['settingsScope'], (scoped) => {
     const form = new CardForm(
       scoped.settingsScope.bind({ namespace: NS }),
-      [textField('domain'), numberField('relayPort'), numberField('webPort'), boolField('fence', true)],
+      [textField('domain'), numberField('relayPort'), numberField('webPort'), boolField('fence', false)],
     )
     const projection = () => ({
       ...form.shell(),

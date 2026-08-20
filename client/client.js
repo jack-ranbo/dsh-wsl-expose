@@ -40,7 +40,7 @@ var zh = {
   webLabel: "\u8F6C\u53D1\u7AEF\u53E3\uFF08DSH\uFF09",
   webHint: "DSH web \u670D\u52A1\u5728 127.0.0.1 \u4E0A\u76D1\u542C\u7684\u7AEF\u53E3\uFF081-65535\uFF0C\u9ED8\u8BA4 3080\uFF09\u3002\u4E24\u4E2A\u7AEF\u53E3\u4E0D\u80FD\u76F8\u540C\u3002",
   fenceLabel: "\u5199\u5165 trusted-host \u767D\u540D\u5355",
-  fenceHint: "/wan up \u662F\u5426\u540C\u65F6\u628A\u57DF\u540D\u5199\u5165 trusted-host \u767D\u540D\u5355\uFF08\u9632\u516C\u7F51 403\uFF09\u3002",
+  fenceHint: "/wan up \u662F\u5426\u540C\u65F6\u628A\u57DF\u540D\u5199\u5165 /api \u4FE1\u4EFB\u56F4\u680F\u3002\u9ED8\u8BA4\u5173\u95ED\u2014\u2014\u8BE5\u56F4\u680F\u4E0D\u662F\u9274\u6743\uFF0C\u5F00\u542F\u524D\u5FC5\u987B\u5728\u53CD\u4EE3\u5C42\u52A0\u771F\u9274\u6743\u3002",
   overridden: "\u5DF2\u8986\u76D6",
   reset: "\u91CD\u7F6E",
   invalidNumber: "\u5FC5\u987B\u662F 1-65535 \u7684\u6574\u6570",
@@ -64,7 +64,7 @@ var en = {
   webLabel: "Forward port (DSH)",
   webHint: "The port the DSH web server listens on at 127.0.0.1 (1-65535, default 3080). The two ports must differ.",
   fenceLabel: "Write trusted-host fence",
-  fenceHint: "Whether /wan up also writes the domain into the trusted-host fence (prevents the public 403).",
+  fenceHint: "Whether /wan up also writes the domain into the /api trust fence. OFF by default \u2014 the fence is not authentication; enable it only behind a proxy with real auth.",
   overridden: "overridden",
   reset: "reset",
   invalidNumber: "must be an integer between 1 and 65535",
@@ -471,7 +471,7 @@ function apply(ctx) {
   ctx.inject(["settingsScope"], (scoped) => {
     const form = new CardForm(
       scoped.settingsScope.bind({ namespace: NS }),
-      [textField("domain"), numberField("relayPort"), numberField("webPort"), boolField("fence", true)]
+      [textField("domain"), numberField("relayPort"), numberField("webPort"), boolField("fence", false)]
     );
     const projection = () => ({
       ...form.shell(),
